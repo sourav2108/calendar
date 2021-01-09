@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>calender</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3 mt-5">
+                <h3 class="text-center">CALENDAR</h3>
+                <div class="card">
+                    <div class="card-header header">
+                        <div id="prev"><span>&#10094</span></div>
+                        <div id="my">
+                            <select name="month" id="month">
+
+                            </select>
+                            <select name="year" id="year">
+
+                            </select>
+                        </div>
+                        <div id="next"><span>&#10095</span></div>
+                    </div>
+                    <div class="card-body weekname">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="card-footer weekdate">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- event modal -->
+    <div class="modal fade" id="eventmodal" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header mx-1 border-bottom border-primary">
+                    <h5 class="modal-title" style='text-transform: capitalize;'>Events</h5>
+                    <button type="button" style="background-color: red;" class="btn-close cmtcl" data-dismiss="modal"
+                        aria-label="close">X</button>
+                </div>
+                <div class="modal-body">
+                    <ul id="eventshow"></ul>
+
+                    <form action="#" id="eventfm" class="">
+                        <input type="hidden" name="day" id="eventday">
+                        <input type="hidden" name="month" id="eventmonth">
+                        <input type="hidden" name="year" id="eventyear">
+                        <input type="text" name="event" id="eventdata" class="form-control" autocomplete="off" autofocus
+                            placeholder="Add Event.....">
+                        <input type="submit" id="addevent" value="ADD" class="btn btn-success mt-3 ml-5">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" id="addmoreevent">Add More Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/calender.js"></script>
+    
+</body>
+
+</html>
