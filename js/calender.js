@@ -33,6 +33,19 @@ $(document).ready(function () {
     }
     showmonth();
 
+    // add event by default
+    function defaultevt(dt,mt,yt,event)
+    {
+        $.ajax({
+            url: "defaultevent.php",
+            type:"POST",
+            data:{dt:dt,mt:mt,yt:yt,ev:event},
+            success: function(data)
+            {
+            }
+        });
+    }
+
     // for show dates
     function dateshow(mn, yr) {
         var mon = parseInt(mn);
@@ -58,9 +71,45 @@ $(document).ready(function () {
             else {
                 week += "<div data-target='#eventmodal' class='wd' data-dt='" + w + "' data-toggle='modal'>" + w + "</div>";
             }
+            if(w==1 && mon==0)
+            {
+                defaultevt(w,mon,yr,"New Year");
+                setTimeout(()=>{
+                    ckev(mon, yr, enddate);
+                },100);
+            }
+            if(w==25 && mon==11)
+            {
+                defaultevt(w,mon,yr,"X-mas Day");
+                setTimeout(()=>{
+                    ckev(mon, yr, enddate);
+                },100);
+            }
+            if(w==15 && mon==7)
+            {
+                defaultevt(w,mon,yr,"Independence Day");
+                setTimeout(()=>{
+                    ckev(mon, yr, enddate);
+                },100);
+            }
+            if(w==26 && mon==0)
+            {
+                defaultevt(w,mon,yr,"Republic Day");
+                setTimeout(()=>{
+                    ckev(mon, yr, enddate);
+                },100);
+            }
+            if(w==14 && mon==1)
+            {
+                defaultevt(w,mon,yr,"Valentine Day");
+                setTimeout(()=>{
+                    ckev(mon, yr, enddate);
+                },100);
+            }
         }
         $(".weekdate").html(week);
         ckev(mon, yr, enddate);
+        
     }
     dateshow(curdate.getMonth(), curdate.getFullYear());
 
@@ -136,7 +185,7 @@ $(document).ready(function () {
                                 $("#eventshow").html(data);
                             }
                         });
-                        var edt = new Date(yt, dt + 1, 0).getDate();
+                        var edt = new Date(yt, mt + 1, 0).getDate();
                         ckev(mt, yt, edt);
                     }
                     else {
@@ -158,16 +207,20 @@ $(document).ready(function () {
             data: { mt: mt, yt: yt },
             success: function (data) {
                 var arr = [], i = 0;
-                if (data != 0) {
+                if (data != 0) 
+                {
                     $.each(data, function (key, v) {
                         arr[i] = v.day;
                         i++;
                     })
 
-                    for (var k = 0; k < enddt; k++) {
-                        for (var z = 0; z < arr.length; z++) {
-                            if ($(".wd")[k].innerText == arr[z]) {
-                                $(".wd")[k].innerHTML += "*"
+                    for (var k = 0; k < enddt; k++) 
+                    {
+                        for (var z = 0; z < arr.length; z++) 
+                        {
+                            if ($(".wd")[k].innerText == arr[z]) 
+                            {
+                                $(".wd")[k].innerHTML += "*";
                             }
                         }
                     }
@@ -175,4 +228,26 @@ $(document).ready(function () {
             }
         });
     }
+
+    // for delete event
+    $(document).on("click", ".deleteevent", function () {
+        var id = $(this).data("id");
+        if (confirm("Do You Realy Want to Delete?")) {
+            $.ajax({
+                url: "deleteevent.php",
+                type: "POST",
+                data: { id: id },
+                success: function (data) {
+                    if (data == 1) {
+                        alert("successfully Delete");
+                        $(".eventcl").trigger("click");
+                        location.reload();
+                    }
+                    else {
+                        alert("error");
+                    }
+                }
+            });
+        }
+    });
 });
