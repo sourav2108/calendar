@@ -2,8 +2,9 @@ $(document).ready(function () {
     var curdate = new Date();
     // for show year
     function showyear() {
+        let dispaly_year=new Date();
         var year = "";
-        for (var i = 1980; i <= 2025; i++) {
+        for (var i = (dispaly_year.getFullYear() - 30); i <= (dispaly_year.getFullYear() + 25); i++) {
             if (i == curdate.getFullYear()) {
                 year += "<option value='" + i + "' selected>" + i + "</option>";
             }
@@ -23,10 +24,10 @@ $(document).ready(function () {
 
         for (var m = 0; m < 12; m++) {
             if (m == curdate.getMonth()) {
-                mnth += "<option  value='" + m + "' selected>" + monthname[m] + "</option>";
+                mnth += "<option  value='"+ m +"' selected>" + monthname[m] + "</option>";
             }
             else {
-                mnth += "<option  value='" + m + "'>" + monthname[m] + "</option>";
+                mnth += "<option  value='"+ m +"'>" + monthname[m] + "</option>";
             }
         }
         $("#month").html(mnth);
@@ -126,14 +127,26 @@ $(document).ready(function () {
 
     // for next button
     $("#next").click(function () {
-        curdate.setMonth(curdate.getMonth() + 1);
+        var mon = $("#month").val();
+        var yr = $("#year").val();
+        var x=parseInt(mon);
+        var y=parseInt(yr);
+        curdate=new Date(y,x+1 ,0);
+        curdate.setDate(1);
+        curdate.setMonth(curdate.getMonth() + 1 );
         dateshow(curdate.getMonth(), curdate.getFullYear());
         showmonth();
         showyear();
     });
     // for prev button
     $("#prev").click(function () {
-        curdate.setMonth(curdate.getMonth() - 1);
+        var mon = $("#month").val();
+        var yr = $("#year").val();
+        var x=parseInt(mon);
+        var y=parseInt(yr);
+        curdate=new Date(y,x+1 ,0);
+        curdate.setDate(1);
+        curdate.setMonth(curdate.getMonth() - 1 );
         dateshow(curdate.getMonth(), curdate.getFullYear());
         showmonth();
         showyear();
